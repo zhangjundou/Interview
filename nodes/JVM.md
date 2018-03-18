@@ -48,7 +48,7 @@ class文件中的常量池（用于存放编辑期生成的各种字面量和符
 在 JDK 1.4 中新加入了 NIO 类，引入了一种基于通道（Channel）与缓冲区（Buffer）的 I/O 方式，它可以使用 Native 函数库直接分配堆外内存，然后通过一个存储在 Java 堆里的 DirectByteBuffer 对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在 Java 堆和 Native 堆中来回复制数据。
 
 # 垃圾收集
-
+ 
 程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后也会消失，因此不需要对这三个区域进行垃圾回收。垃圾回收主要是针对 Java 堆和方法区进行。
 
 ## 判断对象存活
@@ -79,7 +79,7 @@ Java 对引用的概念进行了扩充，引入四种强度不同的引用类型
 
       Object obj = new Object()
       
-### (2)软引用
+####  (2)软引用
 软引用就是用来描述一些还有用但并非必需的对象。
 
 在系统将要发生内存溢出异常之前，将会对这些对象列进回收范围之中进行第二次回收。如果这次回收还没有足够的内存，才会抛出溢出异常。
@@ -90,6 +90,38 @@ SoftRerence类实现软引用。
 
     Object obj = new Object();
     SoftReference<Object> sf = new SoftReference<Object>(obj);
+ 
+#### （3）弱引用
+弱引用也是用来描述非必需对象的。
+
+被弱引用关联的对象只能生存到下次垃圾收集发生之前，当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。
+
+WeakReference类实现弱引用。
+
+    Object obj = new Object();
+    WeakReference<Object> wf = new WeakReference<Object>(obj);
+    
+ #### （4）虚引用
+ 一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来取得一个对象实例。为一个对象设置虚引用关联的唯一目的就是能在这个对象被收集器回收时收到一个系统通知。
+ 
+ PhantomReference类实现虚引用。
+ 
+     Object obj = new Object();
+     PhantomReference<Object> pf = new PhantomReference<Object>(obj);
+     
+ ### 2.4 finalize()
+ 它的运行代价高昂，不确定性大，无法保证各个对象的调用顺序。
+ 
+ finalize()能做的所有工作，使用try-finally或其他方式都可以做的更好、更及时，所以不建议使用这个方法。
+ 
+ 
+ 
+   
+
+        
+
+    
+    
     
     
      
