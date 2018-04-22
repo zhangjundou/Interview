@@ -33,6 +33,132 @@
 
 5.在Java1.4中引入了HashMap的子类LinkedHashMap，若需要遍历顺序，可以从HashMap转向LinkedHashMap， 而HashTable的顺序是不可预知的。
 
+**集合的遍历**
+
+**ArrayList的遍历**
+
+``` java
+import java.util.ArrayList;
+public class ArrayListTest {
+	public static void main(String [] args){
+		List<String> list = new ArrayList<String>();
+		
+		
+		list.add("Java");
+		list.add("计算机网络");
+		list.add("数据结构");
+		list.add("MySql");
+		
+		// 方法一： 使用foreach遍历
+		System.out.println(".......方法一..........");
+		for(String it : list){
+			System.out.println(it);
+		}
+		
+		// 方法二： 使用迭代器遍历
+		System.out.println(".......方法二..........");
+		Iterator<String> cur = list.iterator();
+		while(cur.hasNext()){
+			System.out.println(cur.next());
+		}
+		
+		//方法三：将集合转化为数组，然后进行for或foreach遍历
+		System.out.println(".......方法三..........");
+		 String[] strArray=new String[list.size()];
+	     list.toArray(strArray);
+	     for(int i=0;i<strArray.length;i++) 
+	     {
+	        System.out.println(strArray[i]);
+	     }
+		
+		
+	}
+
+}
+```
+
+**Map的遍历**
+
+``` java 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class MapTest {
+	public static void main(String [] args){
+		Map<Integer,String> map = new HashMap<Integer,String>();
+		
+		map.put(1, "Java");
+		map.put(2, "计算机网络");
+		map.put(3, "数据结构");
+		map.put(4, "MySql");
+		
+		//方法一：先通过Map.keySet遍历key，再通过key获取value值
+		System.out.println(".......方法一..........");
+		for(Integer key : map.keySet()){
+			System.out.println("key :" +key+ " " +"vaule :"  +map.get(key));
+		}
+		
+		//方法二：通过Map.entrySet使用iterator遍历键值对对象，再通过getKey()和getValue()获取key和value的值
+		System.out.println(".......方法一..........");
+		Iterator<Map.Entry<Integer,String>> interator = map.entrySet().iterator();
+		while(interator.hasNext()){
+			Map.Entry<Integer, String> entry = interator.next();
+			System.out.println("key :" + entry.getKey() + " " + "vaule :" + entry.getValue());
+		}
+		
+		//方法三：通过Map.entrySet遍历key和value
+		System.out.println(".......方法一..........");
+		for(Map.Entry<Integer, String> entry : map.entrySet()){
+			System.out.println("key :" + entry.getKey() + " " + "vaule :" + entry.getValue());
+			
+		}
+		
+	}
+
+}
+```
+
+**Set的遍历**
+
+``` java
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class SetTest {
+	public static void main(String [] args){
+		Set<String> set = new HashSet();
+		
+		set.add("Java");
+		set.add("计算机网络");
+		set.add("数据结构");
+		set.add("MySql");
+		
+		//方法一：迭代遍历
+		System.out.println(".......方法一..........");
+		for(Iterator<String> iterator = set.iterator() ; iterator.hasNext(); ){
+			System.out.println(iterator.next());
+		}
+
+		//方法二：foreach循环（没有普通for循环方法）
+		System.out.println(".......方法二..........");
+		for(String it : set){
+			System.out.println(it);
+			
+		}
+		
+		
+	}
+
+}
+```
+
+
+
+
+
+
 
 
 
